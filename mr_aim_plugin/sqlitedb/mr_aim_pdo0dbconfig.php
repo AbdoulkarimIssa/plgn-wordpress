@@ -1,5 +1,5 @@
 <?php
-    $dbname = './wp-content/plugins/mr_aim_plugin/sqlitedb/spotify.sql';
+    $dbname = './wp-content/plugins/mr_aim_plugin/sqlitedb/spotify.sqlite';
 
 
 /*
