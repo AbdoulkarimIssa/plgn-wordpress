@@ -10,8 +10,8 @@ Version: 1.0
 add_action("wp_footer", "mr_aim_test_db");
 
 function mr_aim_test_db(){
-    require_once plugin_dir_path(__FILE__)."sqlitedb/mr_aim_pdo2create.php";
-}
+       require_once plugin_dir_path(__FILE__)."sqlitedb/mr_aim_pdo2create.php";
+ }
 
 $client_id = 'fa5fe9ed9ae748579b4239bee89506fb';
 $client_secret = '3e195efd3c9141968ed5cee686bfdc2b';
