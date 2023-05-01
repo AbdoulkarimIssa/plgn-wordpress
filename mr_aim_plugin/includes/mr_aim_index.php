@@ -4,7 +4,7 @@
 	<title>Barre de recherche PHP</title>
 </head>
 <body>
-	<h1>Recherche de données</h1>
+	<h3>Recherche de données</h3>
 	<form method="get" action="">
 		<label for="search">Recherche :</label>
 		<input type="text" id="search" name="search" placeholder="Entrez votre recherche ici">
