@@ -7,11 +7,11 @@ Author: Issa&Maxime
 Version: 1.0
 */
 
-add_action("wp_footer", "mr_aim_test_db");
+// add_action("wp_footer", "mr_aim_test_db");
 
-function mr_aim_test_db(){
-       require_once plugin_dir_path(__FILE__)."sqlitedb/mr_aim_pdo2create.php";
- }
+// function mr_aim_test_db(){
+//        require_once plugin_dir_path(__FILE__)."sqlitedb/mr_aim_pdo2create.php";
+//  }
 
 function mr_aim_displayMenu(){
     require_once plugin_dir_path(__FILE__)."includes/mr_aim_index.php";
