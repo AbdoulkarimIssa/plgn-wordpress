@@ -13,7 +13,15 @@
 	<?php
     ############################################################################################
     # Créer la base de donnée et les tables si jamais elles n'ont pas encore été créées.       #
-    require_once 'sqlitedb/mr_aim_create_database.php';                                        #
+    require_once 'sqlitedb/mr_aim_pdo0dbconfig.php';
+    require_once 'sqlitedb/mr_aim_pdo1connect.php';
+	if ($conn) {
+        echo "<p>Objet de connexion valide.</p>";
+    } else {
+        echo "Objet de connexion invalide.";
+    }
+	require_once 'sqlitedb/mr_aim_create_database.php';                                        #
+    require_once 'sqlitedb/mr_aim_insert_records.php';                                        #
     ############################################################################################  
 
     # Reste du script

@@ -1,38 +1,4 @@
 <?php
-    /*Inclusion d'un fichier de configuration pour centraliser les informations de connexion*/
-    require_once 'mr_aim_pdo0dbconfig.php';
-
-    /*Essai de connexion en créant on objet connexion avec les informations de la BDD*/
-    try {
-        $conn = new PDO("sqlite:$dbname");
-        echo "<br>Connexion OK sur $dbname chez $host.";
-    }
-
-    /*Si erreur ou exception, interception du message*/
-    catch (PDOException $pe) {
-        echo '<br>Arrêt du script.';
-        //Fonction DIE() identique à EXIT()
-        die("<br>Erreur de connexion sur $dbname chez $host :" . $pe->getMessage());
-    }
-
-    //Si le bloc TRY-CATCH est OK , le reste du script est réalisé
-    //Si erreur dans bloc TRY-CATCH, arrêt du script car fonction DIE
-    echo "<br>Réalisation du reste du script php.";
-
-    /*
-    Objectif : créer :
-
-    CREATE TABLE IF NOT EXISTS tasks (
-        task_id     INT AUTO_INCREMENT PRIMARY KEY,
-        subject     VARCHAR (255)        DEFAULT NULL,
-        start_date  DATE                 DEFAULT NULL,
-        end_date    DATE                 DEFAULT NULL,
-        description VARCHAR (400)        DEFAULT NULL
-    );
-
-    !!! Adapter le nom de la table pour faire de multiples essais !!!
-    */
-
     //Préparation de la requête
     $createArtistRequest = "
             CREATE TABLE IF NOT EXISTS Artist (
@@ -90,6 +56,3 @@
     $createArtistRequest = null;
     $createAlbumRequest = null;
     $createSongRequest = null;
-    //Fermer la connexion SQL (si absent, automatique à la fin du script)
-    $conn = null;
-?>
