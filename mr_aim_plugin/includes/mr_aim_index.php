@@ -11,6 +11,12 @@
 		<input type="submit" value="Rechercher">
 	</form>
 	<?php
+    ############################################################################################
+    # Créer la base de donnée et les tables si jamais elles n'ont pas encore été créées.       #
+    require_once 'sqlitedb/mr_aim_create_database.php';                                        #
+    ############################################################################################  
+
+    # Reste du script
 	if(isset($_GET['search'])) {
 		// Récupération de la recherche utilisateur
 		$search = $_GET['search'];
@@ -19,6 +25,7 @@
 		// Affichage des résultats
 		// ...
 	}
+    
 	?>
 </body>
 </html>
