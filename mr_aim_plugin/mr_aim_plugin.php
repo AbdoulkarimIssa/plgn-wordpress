@@ -13,6 +13,12 @@ function mr_aim_test_db(){
        require_once plugin_dir_path(__FILE__)."sqlitedb/mr_aim_pdo2create.php";
  }
 
+function mr_aim_displayMenu(){
+    require_once plugin_dir_path(__FILE__)."includes/mr_aim_index.php";
+    return null;
+}
+
+add_shortcode('mr_aim_sc', 'mr_aim_displayMenu');
 // $client_id = 'fa5fe9ed9ae748579b4239bee89506fb';
 // $client_secret = '3e195efd3c9141968ed5cee686bfdc2b';
 
