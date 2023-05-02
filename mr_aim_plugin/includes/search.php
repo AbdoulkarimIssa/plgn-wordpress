@@ -1,6 +1,5 @@
 <?php
 require_once("spotify.php");
-require_once("sqlitedb/mr_aim_insert_records.php");
 // Paramètres de la requête
 $inputUtilisateur ="Rohff";
 $artistId = "";
@@ -54,13 +53,16 @@ function getArtistInfo($accessToken,$Url){
     // Fermeture de la session cURL
 }
 
+
+
+
 // $data = getInfosSpotify($accessToken,$artistUrl);
 
 // $artistId = $data['artists']['items'][0]['id'];
 // echo $artistId;
 
-$artist = getArtistInfo($accessToken,$artistSearch);
-foreach ($artist as $cle => $valeur) {
-    echo $cle . " ==> " . $valeur;
-}
-insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
+// $artist = getArtistInfo($accessToken,$artistSearch);
+// foreach ($artist as $cle => $valeur) {
+//     echo $cle . " ==> " . $valeur;
+// }
+// insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
