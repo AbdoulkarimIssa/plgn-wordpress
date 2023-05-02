@@ -47,14 +47,14 @@
 
 	<input type="hidden" id="input-type" name="type" value="">
 	<?php
-
-	require_once 'sqlitedb/mr_aim_pdo0dbconfig.php';
+	require_once 'sqlitedb/mr_aim_select_records.php';
 	require_once 'sqlitedb/mr_aim_pdo1connect.php';
-	// if ($conn) {
-	// 	echo "<p>Objet de connexion valide.</p>";
-	// } else {
-	// 	echo "Objet de connexion invalide.";
-	// }
+
+	if ($conn) {
+		echo "<p>Objet de connexion valide.</p>";
+	} else {
+		echo "Objet de connexion invalide.";
+	}
 
 	// Traitement du formulaire
 	if(isset($_POST['type']) && isset($_POST['search'])){
@@ -63,7 +63,7 @@
 		echo "Le type sélectionné est : ".$type."<br>";
 		echo "La recherche effectuée est : ".$search."<br>";
 		// ici vous pouvez utiliser les variables $type et $search dans votre code PHP
-		require_once 'sqlitedb/mr_aim_select_records.php';
+		selectRecords($type, $search, $conn);
 	}
 
     ############################################################################################

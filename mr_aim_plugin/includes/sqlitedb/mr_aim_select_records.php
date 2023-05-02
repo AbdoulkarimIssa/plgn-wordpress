@@ -1,7 +1,4 @@
 <?php
-    // require_once 'sqlitedb/mr_aim_pdo0dbconfig.php';
-    // require_once 'sqlitedb/mr_aim_pdo1connect.php';
-
     function selectRecords($type, $search, $conn){
         // Récupération des données de la table demandée
         $table = $type;
@@ -42,4 +39,4 @@
         }
     }
 
-    selectRecords($type, $search, $conn);
+    // selectRecords($type, $search, $conn);
