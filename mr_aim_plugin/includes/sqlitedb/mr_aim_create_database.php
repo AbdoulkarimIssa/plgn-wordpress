@@ -43,15 +43,15 @@
     //par la requête SQL exécutée.
     //Si aucune ligne n'est affectée, la fonction PDO::exec() retournera 0.
     $nbLignesModif = $conn->exec($createArtistRequest);
-    echo "Table Artist created";
+    //echo "Table Artist created";
 
     $nbLignesModif = $conn->exec($createAlbumRequest);
-    echo "Table Album created";
+    //echo "Table Album created";
 
     $nbLignesModif = $conn->exec($createSongRequest);
-    echo "Table Song created";
+    //echo "Table Song created";
 
-    echo('Database and Tables Created');
+    //echo('Database and Tables Created');
     // //Purger la requete SQL
     $createArtistRequest = null;
     $createAlbumRequest = null;

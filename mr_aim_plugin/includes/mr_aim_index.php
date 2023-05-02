@@ -47,6 +47,16 @@
 
 	<input type="hidden" id="input-type" name="type" value="">
 	<?php
+	require_once 'sqlitedb/mr_aim_select_records.php';
+	require_once 'sqlitedb/mr_aim_insert_records.php';
+	require_once 'sqlitedb/mr_aim_pdo1connect.php';
+	require_once 'sqlitedb/mr_aim_create_database.php';
+
+	if ($conn) {
+		echo "<p>Objet de connexion valide.</p>";
+	} else {
+		echo "Objet de connexion invalide.";
+	}
 
 	// Traitement du formulaire
 	if(isset($_POST['type']) && isset($_POST['search'])){
@@ -55,31 +65,14 @@
 		echo "Le type sélectionné est : ".$type."<br>";
 		echo "La recherche effectuée est : ".$search."<br>";
 		// ici vous pouvez utiliser les variables $type et $search dans votre code PHP
+		selectRecords($type, $search, $conn);
 	}
 
     ############################################################################################
     # Créer la base de donnée et les tables si jamais elles n'ont pas encore été créées.       #
-    require_once 'sqlitedb/mr_aim_pdo0dbconfig.php';
-    require_once 'sqlitedb/mr_aim_pdo1connect.php';
-	if ($conn) {
-        echo "<p>Objet de connexion valide.</p>";
-    } else {
-        echo "Objet de connexion invalide.";
-    }
-	require_once 'sqlitedb/mr_aim_create_database.php';                                        #
-    require_once 'sqlitedb/mr_aim_insert_records.php';                                        #
+	#require_once 'sqlitedb/mr_aim_create_database.php';                                        #
+    #require_once 'sqlitedb/mr_aim_insert_records.php';                                        #
     ############################################################################################  
-
-    # Reste du script
-	if(isset($_GET['search'])) {
-		// Récupération de la recherche utilisateur
-		$search = $_GET['search'];
-		// Traitement de la recherche
-		// ...
-		// Affichage des résultats
-		// ...
-	}
-    
 	?>
 </body>
 </html>
