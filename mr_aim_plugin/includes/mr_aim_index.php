@@ -48,7 +48,9 @@
 	<input type="hidden" id="input-type" name="type" value="">
 	<?php
 	require_once 'sqlitedb/mr_aim_select_records.php';
+	require_once 'sqlitedb/mr_aim_insert_records.php';
 	require_once 'sqlitedb/mr_aim_pdo1connect.php';
+	require_once 'sqlitedb/mr_aim_create_database.php';
 
 	if ($conn) {
 		echo "<p>Objet de connexion valide.</p>";
