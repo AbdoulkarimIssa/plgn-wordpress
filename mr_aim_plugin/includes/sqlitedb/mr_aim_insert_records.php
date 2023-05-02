@@ -1,4 +1,7 @@
 <?php
+require_once("mr_aim_pdo1connect.php");
+
+
     if ($conn) {
         echo "Objet de connexion valide.";
     } else {
@@ -35,16 +38,27 @@
     $releaseDate = "2023-04-01 20:18:54";
     $tracksNumber = 12;    
 
-
-
-    if ($tableName == "Artist"){
-        $insertRequest = 'INSERT INTO '.$tableName.' '.$tableSchemaDictionnary[$tableName].''
+function insertArtist($idSpotifyArtist,$name,$popularity,$tableSchemaDictionnary,$conn){
+        $insertRequest = 'INSERT INTO Artist '.$tableSchemaDictionnary['Artist'].''
         .' VALUES ("'
         .$idSpotifyArtist.'", "'
         .$name.'", "'
         .$popularity.'", DATE());';
+        try {
+            // echo "<p>".$insertRequest."</p>";
+            $nbLignesModif = $conn->exec($insertRequest);
+            if ($nbLignesModif == 0){
+                echo "<p>Enregistrement pour Id :".$idSpotifyArtist." already exists.</p>";
+            }else{
+                echo "<p>Nouvel enregistrement créé avec succès</p>";
+            }
+            
+        } catch(PDOException $e) {
+            echo "Erreur: " . $e->getMessage();
+        }
     }
-    elseif($tableName == "Album"){
+
+   if($tableName == "Album"){
         $insertRequest = 'INSERT INTO '.$tableName.' '.$tableSchemaDictionnary[$tableName].''
         .' VALUES ("'
         .$IdSpotifyAlbum.'", "'
