@@ -12,7 +12,7 @@ $albumUrlInfos ='https://api.spotify.com/v1/search?q='.str_replace(' ', '+', $in
 
 function getInfosSpotify($accessToken, $inputUtilisateur,$type) {
     $inputUtilisateur = str_replace(' ', '+', $inputUtilisateur);
-    $url= 'https://api.spotify.com/v1/search?q='.$inputUtilisateur.'&type='.$type.'.&limit=1';
+    $url= 'https://api.spotify.com/v1/search?q='.$inputUtilisateur.'&type='.$type.'&limit=1';
     // Options de la requête
     $get = curl_init();
     $authorization = 'Authorization: Bearer '. $accessToken;
@@ -24,7 +24,7 @@ function getInfosSpotify($accessToken, $inputUtilisateur,$type) {
     $response = curl_exec($get);
     $data = json_decode($response,true);
 
-
+    // echo "data => ".$data;
     // Fermeture de la session cURL
     curl_close($get);
     
@@ -46,12 +46,16 @@ function getArtistInfo($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$c
 
     // Exécution de la requête et récupération des résultats
     $response = curl_exec($get);
-    //echo $response;
+    // echo "response => ".$response;
     $data = json_decode($response,true);
 
     $id = $data['id'];
     $name = $data['name'];
     $popularity = $data['popularity'];
+
+    // echo "id => ".$id;
+    // echo $name;
+    // echo $popularity;
 
     curl_close($get);
     
