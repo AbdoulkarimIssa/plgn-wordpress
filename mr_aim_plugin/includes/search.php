@@ -23,7 +23,7 @@ function getInfosSpotify($accessToken, $inputUtilisateur,$type) {
     return $data;
 }
 
-function getArtist($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
+function getArtistBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
     $url_type = 'artist';
     $data = getInfosSpotify($accessToken,$inputUtilisateur,$url_type);
     $artistId = $data['artists']['items'][0]['id'];
@@ -57,9 +57,10 @@ function getArtist($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn)
 
 }
 
-function getAlbum($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
+function getAlbumBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
     $url_type ="album";
     $data = getInfosSpotify($accessToken,$inputUtilisateur,$url_type);
+
     
     // Single Album Parser
     $IdSpotifyAlbum = $data['albums']['items'][0]['id'];
@@ -74,7 +75,7 @@ function getAlbum($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
 
 }
 
-function getSong($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
+function getSongBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
     $url_type ="track";
     $data = getInfosSpotify($accessToken, $inputUtilisateur,$url_type);
     
@@ -91,29 +92,113 @@ function getSong($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
 
     insertSong($IdSpotifySong, $IdSpotifyAlbum, $IdSpotifyArtist, $name, $duration, $popularity, $tracksNumber, $songNumber, $tableSchemaDictionnary, $conn);
 
-    if ($album_type != "album") {
-        return array("artist_id"=>$idArtist, "album_id"=>$album_id);
+    if ($album_type == "album") {
+        return array("artist_id"=>$IdSpotifyArtist, "album_id"=>$IdSpotifyAlbum);
     }
+
 
 }
 
 
+function getArtistAlbums($accessToken,$artist_id,$tableSchemaDictionnary,$conn){
+
+    $url= "https://api.spotify.com/v1/artists/".$artist_id."/albums?limit=10";
+    $get = curl_init();
+    $authorization = 'Authorization: Bearer '. $accessToken;
+    curl_setopt($get, CURLOPT_URL, $url);
+    curl_setopt($get, CURLOPT_HTTPHEADER, array($authorization));
+    curl_setopt($get, CURLOPT_RETURNTRANSFER, true);
+
+
+    // Exécution de la requête et récupération des résultats
+    $response = curl_exec($get);
+    $data = json_decode($response,true);
+    curl_close($get);
+
+    $items = $data['items'];
+    $album_ids = array();
+    foreach($items as $item){
+        $IdSpotifyAlbum = $item['id'];
+        $name = $item['name'];
+        $IdSpotifyArtist = $artist_id;
+        $image = $item['images'][1]['url'];
+        $releaseDate = $item['release_date'];
+        $tracksNumber =$item['total_tracks'];
+        array_push($album_ids, $IdSpotifyAlbum);
+        insertAlbum($IdSpotifyAlbum, $IdSpotifyArtist, $image, $name, $releaseDate, $tracksNumber, $tableSchemaDictionnary, $conn);
+    }
+    return $album_ids;
+}
+
+function getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn){
+    
+    $url= "https://api.spotify.com/v1/albums/".$album_id."/tracks?limit=30";
+    $get = curl_init();
+    $authorization = 'Authorization: Bearer '. $accessToken;
+    curl_setopt($get, CURLOPT_URL, $url);
+    curl_setopt($get, CURLOPT_HTTPHEADER, array($authorization));
+    curl_setopt($get, CURLOPT_RETURNTRANSFER, true);
+
+
+    // Exécution de la requête et récupération des résultats
+    $response = curl_exec($get);
+    $data = json_decode($response,true);
+    curl_close($get);
+    
+    $items = $data['items'];
+    foreach($items as $item){
+        $IdSpotifySong = $item['id'];
+        $IdSpotifyAlbum = $album_id;
+        $IdSpotifyArtist = $artist_id;
+        $name = $item['name'];
+        $duration = $item['duration_ms'];
+        $popularity = 0; // no data available
+        $tracksNumber = $data['total'];
+        $songNumber = $data['track_number'];
+        insertSong($IdSpotifySong, $IdSpotifyAlbum, $IdSpotifyArtist, $name, $duration, $popularity, $tracksNumber, $songNumber, $tableSchemaDictionnary, $conn);
+    }
+}
+
+function getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn){
+    $url= "https://api.spotify.com/v1/artists/".$artist_id;
+    $get = curl_init();
+    $authorization = 'Authorization: Bearer '. $accessToken;
+    curl_setopt($get, CURLOPT_URL, $url);
+    curl_setopt($get, CURLOPT_HTTPHEADER, array($authorization));
+    curl_setopt($get, CURLOPT_RETURNTRANSFER, true);
+
+
+    // Exécution de la requête et récupération des résultats
+    $response = curl_exec($get);
+    $data = json_decode($response,true);
+    curl_close($get);
+    
+    $idSpotifyArtist = $artist_id;
+    $name = $data['name'];
+    $popularity = $data['popularity'];
+    insertArtist($idSpotifyArtist,$name,$popularity,$tableSchemaDictionnary,$conn);
+}
+
 function dispatch($accessToken, $type, $inputUtilisateur,$tableSchemaDictionnary,$conn){
     if ($type == 'Artist'){
-        $artist_id = getArtist($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
-        echo $artist_id;    
-
+        $artist_id = getArtistBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
+        $albums_id_list = getArtistAlbums($accessToken,$artist_id,$tableSchemaDictionnary,$conn);   
+        foreach($albums_id_list as $album_id){
+            getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+        }  
     }
     elseif($type == 'Album'){
-        $info = getAlbum($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
-        //getAlbumSongs($accessToken, $info['album_id']);
-        // $artist_id = getArtistInfo($accessToken,$info['idArtist'],$tableSchemaDictionnary,$conn);
-        echo "album";
-        echo $info;
+        $info = getAlbumBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
+        $artist_id = $info['artist_id'];
+        $album_id = $info['album_id'];
+        getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn);
+        getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
     }
     else{
-        $info = getSong($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn); #--> array("album_id":value, "artist_id":value);
-        echo "chanson";
-        echo $info;
+        $info = getSongBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn); #--> array("album_id":value, "artist_id":value);
+        $artist_id = $info['artist_id'];
+        $album_id = $info['album_id'];
+        getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn);
+        getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
     }
 }

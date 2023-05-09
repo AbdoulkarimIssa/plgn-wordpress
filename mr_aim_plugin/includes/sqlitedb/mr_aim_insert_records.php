@@ -47,7 +47,7 @@
             if ($nbLignesModif == 0){
                 echo "<p>Enregistrement pour Id :".$idSpotifyArtist." already exists.</p>";
             }else{
-                echo "<p>Nouvel enregistrement créé avec succès</p>";
+                echo "<p>Nouvel Artiste créé avec succès</p>";
             }
             
         } catch(PDOException $e) {
@@ -70,7 +70,7 @@
             if ($nbLignesModif == 0){
                 echo "<p>Enregistrement pour Id :".$IdSpotifyAlbum." already exists.</p>";
             }else{
-                echo "<p>Nouvel enregistrement créé avec succès</p>";
+                echo "<p>Nouvel Album  créé avec succès</p>";
             }
             
         } catch(PDOException $e) {
@@ -95,7 +95,7 @@
             if ($nbLignesModif == 0){
                 echo "<p>Enregistrement pour Id :".$IdSpotifySong." already exists.</p>";
             }else{
-                echo "<p>Nouvel enregistrement créé avec succès</p>";
+                echo "<p>Nouvelle Track  créé avec succès</p>";
             }
             
         } catch(PDOException $e) {
