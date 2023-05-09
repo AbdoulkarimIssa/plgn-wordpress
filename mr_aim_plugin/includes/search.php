@@ -100,9 +100,7 @@ function getSong($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn){
 
 function dispatch($accessToken, $type, $inputUtilisateur,$tableSchemaDictionnary,$conn){
     if ($type == 'Artist'){
-        echo $type;
-        $url_type ="artist";
-        $artist_id = getArtist($accessToken,$inputUtilisateur, $url_type,$tableSchemaDictionnary,$conn);
+        $artist_id = getArtist($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
         echo $artist_id;    
 
     }
