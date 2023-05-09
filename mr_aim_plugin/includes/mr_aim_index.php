@@ -66,13 +66,15 @@
 		echo "Le type sélectionné est : ".$type."<br>";
 		echo "La recherche effectuée est : ".$search."<br>";
 		// ici vous pouvez utiliser les variables $type et $search dans votre code PHP
-		$artist = getArtistInfo($accessToken,$artistSearch);
-		foreach ($artist as $cle => $valeur) {
-			echo $cle . " ==> " . $valeur;
-		}
-		insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
+		dispatch($accessToken, $type, $search, $tableSchemaDictionnary, $conn);
 
-		selectRecords($type, $search, $conn);
+		//$artist = getArtistInfo($accessToken,$artistSearch);
+		//foreach ($artist as $cle => $valeur) {
+		//	echo $cle . " ==> " . $valeur;
+		//}
+		//insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
+
+		//selectRecords($type, $search, $conn);
 	}
 
     ############################################################################################
