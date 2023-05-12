@@ -1,21 +1,8 @@
-
 <?php
 
-function updateTableParams($value,$conn){
-        $duree = $value; //jours
-        $insertRequest = "UPDATE Params SET duree = ".$duree." WHERE id = 1;";
-        $nbLignesModif = $conn->exec($insertRequest);
-        }
-
-function deleteRecords($conn) {
-    $fieldName ="duree";
-    $sql = "SELECT ".$fieldName." FROM Params WHERE id = 1";
-    $result = $conn->query($sql);
-    $row = $result->fetch(PDO::FETCH_ASSOC);
-    $value = $row[$fieldName];
-    // $value = 10;
+function deleteRecords($conn, $days) {
     // Calcul de la date limite
-    $limitDate = date('Y-m-d', strtotime("-$value days"));
+    $limitDate = date('Y-m-d', strtotime("-$days days"));
 
     // Suppression des enregistrements dans la table 'Artist'
     $sql = "DELETE FROM Artist WHERE lastUpdated > '".$limitDate."'";
@@ -32,16 +19,9 @@ function deleteRecords($conn) {
     echo "deleted";
 }
 
-function countExpiredRecords($conn) {
-    echo "countExpiredRecords start";
-    $fieldName ="duree";
-    $sql = "SELECT ".$fieldName." FROM Params WHERE id = 1";
-    $result = $conn->query($sql);
-    $row = $result->fetch(PDO::FETCH_ASSOC);
-    $value = $row[$fieldName];
-    // $value = 10;
+function countExpiredRecords($conn, $days) {
     // Calcul de la date limite
-    $limitDate = date('Y-m-d', strtotime("-$value days"));
+    $limitDate = date('Y-m-d', strtotime("-$days days"));
 
     // Compteur total
     $totalCount = 0;
@@ -65,7 +45,5 @@ function countExpiredRecords($conn) {
     $totalCount += $count;
 
     // Retourner la somme du compte
-    //echo "countExpiredRecords end";
     return $totalCount;
 }
-        

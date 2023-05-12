@@ -1,5 +1,6 @@
 <?php
     $dbname = './wp-content/plugins/mr_aim_plugin/includes/sqlitedb/spotify.sqlite';
+    $adminSideDbName = '../wp-content/plugins/mr_aim_plugin/includes/sqlitedb/spotify.sqlite';
     $host = '';
 /*
 Utilisation ?
