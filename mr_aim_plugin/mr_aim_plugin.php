@@ -13,7 +13,7 @@ Version: 1.0
 //        require_once plugin_dir_path(__FILE__)."sqlitedb/mr_aim_pdo2create.php";
 //  }
 
-require_once plugin_dir_path(__FILE__)."includes/adminMenu.php";
+// require_once plugin_dir_path(__FILE__)."includes/adminMenu.php";
 
 function mr_aim_displayMenu(){
     require_once plugin_dir_path(__FILE__)."includes/mr_aim_index.php";
