@@ -4,7 +4,7 @@ require_once("spotify.php");
 
 function getInfosSpotify($accessToken, $inputUtilisateur,$type) {
     $inputUtilisateur = str_replace(' ', '+', $inputUtilisateur);
-    $url= 'https://api.spotify.com/v1/search?q='.$inputUtilisateur.'&type='.$type.'.&limit=1';
+    $url= 'https://api.spotify.com/v1/search?q='.$inputUtilisateur.'&type='.$type.'&limit=1';
     // Options de la requête
     $get = curl_init();
     $authorization = 'Authorization: Bearer '. $accessToken;
@@ -43,9 +43,9 @@ function getArtistBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnar
     $name = $data['name'];
     $popularity = $data['popularity'];
 
-    echo "id => ".$idSpotifyArtist;
-    echo $name;
-    echo $popularity;
+    // echo "id => ".$id;
+    // echo $name;
+    // echo $popularity;
 
     curl_close($get);
     
