@@ -17,15 +17,15 @@
     // $name = "Lana Del Rey";
     // $popularity = 80;
 
-    $tableName = "Song";
-    $IdSpotifySong = 'song_id_1';
-    $IdSpotifyAlbum = 'album_id_1';
-    $IdSpotifyArtist = 'artist_id_1';
-    $name = 'Song 1';
-    $duration = 300;
-    $popularity = 80;
-    $tracksNumber = 12;
-    $songNumber = 1;
+    // $tableName = "Song";
+    // $IdSpotifySong = 'song_id_1';
+    // $IdSpotifyAlbum = 'album_id_1';
+    // $IdSpotifyArtist = 'artist_id_1';
+    // $name = 'Song 1';
+    // $duration = 300;
+    // $popularity = 80;
+    // $tracksNumber = 12;
+    // $songNumber = 1;
 
     // $tableName = "Album";
     // $IdSpotifyAlbum = 'album_id_1';
@@ -47,7 +47,7 @@
             if ($nbLignesModif == 0){
                 echo "<p>Enregistrement pour Id :".$idSpotifyArtist." already exists.</p>";
             }else{
-                echo "<p>Nouvel enregistrement créé avec succès</p>";
+                echo "<p>Nouvel Artiste créé avec succès</p>";
             }
             
         } catch(PDOException $e) {
@@ -70,7 +70,7 @@
             if ($nbLignesModif == 0){
                 echo "<p>Enregistrement pour Id :".$IdSpotifyAlbum." already exists.</p>";
             }else{
-                echo "<p>Nouvel enregistrement créé avec succès</p>";
+                echo "<p>Nouvel Album  créé avec succès</p>";
             }
             
         } catch(PDOException $e) {
@@ -95,13 +95,14 @@
             if ($nbLignesModif == 0){
                 echo "<p>Enregistrement pour Id :".$IdSpotifySong." already exists.</p>";
             }else{
-                echo "<p>Nouvel enregistrement créé avec succès</p>";
+                echo "<p>Nouvelle Track  créé avec succès</p>";
             }
             
         } catch(PDOException $e) {
             echo "Erreur: " . $e->getMessage();
         }
     }
+
 
 
 

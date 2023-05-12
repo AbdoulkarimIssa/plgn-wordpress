@@ -1,7 +1,6 @@
 <?php
     $dbname = './wp-content/plugins/mr_aim_plugin/includes/sqlitedb/spotify.sqlite';
-
-
+    $host = '';
 /*
 Utilisation ?
 https://stackoverflow.com/questions/2418473/difference-between-require-include-require-once-and-include-once/2418514#2418514
