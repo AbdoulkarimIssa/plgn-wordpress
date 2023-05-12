@@ -1,5 +1,15 @@
 <?php
 require_once("spotify.php");
+<<<<<<< HEAD
+=======
+// Paramètres de la requête
+$inputUtilisateur ="Rohff";
+$artistId = "";
+$inputUtilisateur = str_replace(' ', '+', $inputUtilisateur);
+$artistSearch = 'https://api.spotify.com/v1/search?q='.$inputUtilisateur.'&type=artist&limit=1';
+$url = 'https://api.spotify.com/v1/search?q=rohff&type=artist';
+$authorization = 'Authorization: Bearer '. $accessToken;
+>>>>>>> 1627c37 (test insertion)
 
 function getInfosSpotify($accessToken, $inputUtilisateur,$type) {
     $inputUtilisateur =  urlencode($inputUtilisateur);
