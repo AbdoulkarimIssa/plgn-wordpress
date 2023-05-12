@@ -103,9 +103,6 @@
         }
     }
 
-
-
-
     // if ($tableName == "Artist"){
     //     $insertRequest = 'INSERT INTO '.$tableName.' '.$tableSchemaDictionnary[$tableName].''
     //     .' VALUES ("'

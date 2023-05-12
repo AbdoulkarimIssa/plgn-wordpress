@@ -200,7 +200,7 @@ function getAlbumById($accessToken,$artist_id, $album_id,$tableSchemaDictionnary
     $image = $data['images'][0]['url'];
     $releaseDate = $data['release_date'];
     $tracksNumber =$data['total_tracks'];
-    insertArtist($idSpotifyArtist,$name,$popularity,$tableSchemaDictionnary,$conn);
+    insertAlbum($IdSpotifyAlbum, $IdSpotifyArtist, $image, $name, $releaseDate, $tracksNumber, $tableSchemaDictionnary, $conn);
 }
 
 

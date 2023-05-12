@@ -27,3 +27,15 @@ function render_retention_options_page() {
     </form>
     <?php
 }
+
+// //require_once 'sqlitedb/mr_aim_pdo1connect.php';
+// require_once('af-admin-page.php');
+
+
+// 	// Traitement du formulaire
+//     if(isset($_POST['submit'])){
+//         // Récupération des valeurs des champs du formulaire
+//         $retention_days = $_POST['retention_days'];
+//         $query_limit = $_POST['query_limit'];
+//         updateTableParams($retention_days,$conn);
+//       }
