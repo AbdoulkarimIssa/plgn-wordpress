@@ -206,25 +206,35 @@ function getAlbumById($accessToken,$artist_id, $album_id,$tableSchemaDictionnary
 
 function dispatch($accessToken, $type, $inputUtilisateur,$tableSchemaDictionnary,$conn){
     if ($type == 'Artist'){
-        $artist_id = getArtistBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
-        $albums_id_list = getArtistAlbums($accessToken,$artist_id,$tableSchemaDictionnary,$conn);   
-        foreach($albums_id_list as $album_id){
-            getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
-        }  
+        $artist_rows = selectRecords($type, $inputUtilisateur, $conn);
+        if ($artist_rows == 0){
+            $artist_id = getArtistBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
+            $albums_id_list = getArtistAlbums($accessToken,$artist_id,$tableSchemaDictionnary,$conn);   
+            foreach($albums_id_list as $album_id){
+                getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+            }
+        } 
     }
     elseif($type == 'Album'){
-        $info = getAlbumBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
-        $artist_id = $info['artist_id'];
-        $album_id = $info['album_id'];
-        getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn);
-        getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+        $album_rows = selectRecords($type, $inputUtilisateur, $conn);
+        if ($album_rows == 0){
+            $info = getAlbumBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn);
+            $artist_id = $info['artist_id'];
+            $album_id = $info['album_id'];
+            getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn);
+            getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+        }
     }
     else{
-        $info = getSongBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn); #--> array("album_id":value, "artist_id":value);
-        $artist_id = $info['artist_id'];
-        $album_id = $info['album_id'];
-        getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn);
-        getAlbumById($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
-        getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+        $song_rows = selectRecords($type, $inputUtilisateur, $conn);
+        if ($song_rows == 0){
+            $info = getSongBySearch($accessToken,$inputUtilisateur,$tableSchemaDictionnary,$conn); #--> array("album_id":value, "artist_id":value);
+            $artist_id = $info['artist_id'];
+            $album_id = $info['album_id'];
+            getArtistById($accessToken,$artist_id,$tableSchemaDictionnary,$conn);
+            getAlbumById($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+            getAlbumSongs($accessToken,$artist_id, $album_id,$tableSchemaDictionnary,$conn);
+        }
     }
 }
+
