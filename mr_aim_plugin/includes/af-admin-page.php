@@ -1,4 +1,3 @@
-
 <?php
 
 function updateTableParams($value,$conn){
@@ -8,26 +7,31 @@ function updateTableParams($value,$conn){
         }
 
 function deleteRecords($conn) {
+        echo "test 2";
     $fieldName ="duree";
     $sql = "SELECT ".$fieldName." FROM Params WHERE id = 1";
     $result = $conn->query($sql);
+        echo "test2";
     $row = $result->fetch(PDO::FETCH_ASSOC);
+        echo "test3";
+        echo $row;
     $value = $row[$fieldName];
     // $value = 10;
     // Calcul de la date limite
     $limitDate = date('Y-m-d', strtotime("-$value days"));
+    echo $limitDate;
+     //Suppression des enregistrements dans la table 'Artist'
+    echo "test4";
+     $sql = "DELETE FROM Artist WHERE lastUpdated > '".$limitDate."'";
+     $conn->exec($sql);
+     echo "test5";
+    // // Suppression des enregistrements dans la table 'Album'
+     $sql = "DELETE FROM Album WHERE lastUpdated > '".$limitDate."'";
+     $conn->exec($sql);
 
-    // Suppression des enregistrements dans la table 'Artist'
-    $sql = "DELETE FROM Artist WHERE lastUpdated > '".$limitDate."'";
-    $conn->exec($sql);
-
-    // Suppression des enregistrements dans la table 'Album'
-    $sql = "DELETE FROM Album WHERE lastUpdated > '".$limitDate."'";
-    $conn->exec($sql);
-
-    // Suppression des enregistrements dans la table 'Song'
-    $sql = "DELETE FROM Song WHERE lastUpdated > '".$limitDate."'";
-    $conn->exec($sql);
+    // // Suppression des enregistrements dans la table 'Song'
+     $sql = "DELETE FROM Song WHERE lastUpdated > '".$limitDate."'";
+  $conn->exec($sql);
 
     echo "deleted";
 }
@@ -53,6 +57,7 @@ function countExpiredRecords($conn) {
     $totalCount += $count;
 
     // Compteur pour la table 'Album'
+    
     $sql = "SELECT COUNT(*) AS count FROM Album WHERE lastUpdated > '$limitDate'";
     $result = $conn->query($sql);
     $count = $result->fetch(PDO::FETCH_ASSOC)['count'];

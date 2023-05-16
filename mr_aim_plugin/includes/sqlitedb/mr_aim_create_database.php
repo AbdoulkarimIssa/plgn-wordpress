@@ -45,7 +45,7 @@
         ";
 
     $initializeParamsTable = "
-            INSERT INTO Params (`id`, `duree`) VALUES (1, 10);
+            INSERT INTO Params (`id`, `duree`) VALUES (2, 10);
     ";
     //PDO::exec() retourne le nombre de lignes qui ont été modifiées ou effacées
     //par la requête SQL exécutée.
@@ -61,11 +61,11 @@
 
     $nbLignesModif = $conn->exec($createParamsTable);
 
-    $nbLignesModif = $conn->exec($initializeParamsTable);
+    //$nbLignesModif = $conn->exec($initializeParamsTable);
     //echo('Database and Tables Created');
     // //Purger la requete SQL
     $createArtistRequest = null;
     $createAlbumRequest = null;
     $createSongRequest = null;
     $createParamsTable = null;
-    $initializeParamsTable = null;
+    //$initializeParamsTable = null;
