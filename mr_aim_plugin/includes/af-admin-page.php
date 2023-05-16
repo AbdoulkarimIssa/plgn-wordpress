@@ -73,4 +73,25 @@ function countExpiredRecords($conn) {
     //echo "countExpiredRecords end";
     return $totalCount;
 }
+
+function viderLabase($conn){
+
+    try {
+            // Requêtes de suppression des tables
+        $tables = array('Artist', 'Album', 'Song');
+    
+        foreach ($tables as $table) {
+            $sql = "DELETE FROM $table";
+            $conn->exec($sql);
+            echo "Les données de la table $table ont été supprimées avec succès.<br>";
+        }
+        
+    } catch (PDOException $e) {
+        echo 'Une erreur s\'est produite : ' . $e->getMessage();
+        exit;
+    }
+
+
+
+}
         

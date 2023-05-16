@@ -81,4 +81,21 @@ function render_retention_options_page() {
         $query_limit = $_POST['query_limit'];
         updateTableParams($retention_days,$connAdmin);
         }
+
+    ?>
+<form method="POST">
+    <input type="submit" name="delete_database" value="Vider la base de données">
+</form>
+<?php
+
+if(isset($_POST['delete_database'])){
+    echo "test";
+    //$delete_database = $_POST['delete_database'];
+    viderLabase($connAdmin);
     }
+    
+}
+
+
+
+
