@@ -17,15 +17,15 @@ require_once('sqlitedb/mr_aim_select_records.php');
 require_once('af-admin-page.php');
 function render_retention_options_page() {
     function makeConnectionFromAdmin(){
-        echo "test conn1";
+        
         $adminSideDbName = '../wp-content/plugins/mr_aim_plugin/includes/sqlitedb/spotify.sqlite';
 
         /*Essai de connexion en créant on objet connexion avec les informations de la BDD*/
         try {
             //echo "sqlite:$dbname";
-            echo "test conn2";
+
             $conn = new PDO("sqlite:$adminSideDbName");
-            echo "test conn3";
+
             //echo "<br>Connexion OK sur $dbname chez $host.";
         }
 
@@ -37,9 +37,9 @@ function render_retention_options_page() {
         }
         return $conn;
     }
-    echo "test conn5";
+
     $connAdmin = makeConnectionFromAdmin();
-    echo "test conn6";
+
     //$countLine = 0;
     $countLine = countExpiredRecords($connAdmin);
     if ($countLine > 0){
@@ -53,7 +53,7 @@ function render_retention_options_page() {
         echo "</form>";
         echo "</div>";
         if (isset($_POST['delete'])) {
-            echo "test delete";
+           
             deleteRecords($connAdmin);
             echo "Les enregistrements expirés ont été supprimés.";
         }
@@ -147,7 +147,7 @@ function render_retention_options_page() {
 
     // Traitement du formulaire
     if(isset($_POST['submit'])){
-        echo "test";
+    
         $retention_days = $_POST['retention_days'];
         $query_limit = $_POST['query_limit'];
         updateTableParams($retention_days,$connAdmin);
@@ -160,7 +160,7 @@ function render_retention_options_page() {
     <?php
 
     if(isset($_POST['delete_database'])){
-        echo "test";
+   
         //$delete_database = $_POST['delete_database'];
         viderLabase($connAdmin);
         }
