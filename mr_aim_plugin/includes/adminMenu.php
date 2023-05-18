@@ -13,7 +13,7 @@ function create_custom_admin_menu() {
 }
 add_action('admin_menu', 'create_custom_admin_menu');
 
-    
+require_once('sqlitedb/mr_aim_select_records.php');
 require_once('af-admin-page.php');
 function render_retention_options_page() {
     function makeConnectionFromAdmin(){
@@ -62,6 +62,20 @@ function render_retention_options_page() {
     }
     
     ?>
+      <form method="POST">
+		<div style='display:flex;'>
+		<label><input type="radio" name="type" value="Artist" onclick="showSearch()"> Artist</label>
+		<label><input type="radio" name="type" value="Album" onclick="showSearch()"> Album</label>
+		<label><input type="radio" name="type" value="Song" onclick="showSearch()"> Song</label>
+		<br>
+		</div>
+		<div id="search" style="display:none">
+			<label>Recherche : </label>
+			<input type="text" name="search">
+			<input type="submit" value="Valider">
+		</div>
+	</form>
+
         <form method="POST">
         <label for="retention_days">Nombre de jours de rétention :</label>
         <input type="number" name="retention_days" id="retention_days" min="1" max="365" required>
@@ -72,6 +86,26 @@ function render_retention_options_page() {
         <input type="submit" name="submit" value="Envoyer">
     </form>
 
+    <script>
+		function showSearch(){
+			// Affiche la barre de recherche si au moins un bouton est sélectionné
+			var radios = document.getElementsByName("type");
+			var search = document.getElementById("search");
+			for(var i = 0; i < radios.length; i++){
+				if(radios[i].checked){
+					search.style.display = "block";
+					break;
+				}
+				else{
+					search.style.display = "none";
+				}
+			}
+			// Remplit la valeur de l'input hidden avec le bouton sélectionné
+			var type = document.querySelector('input[name="type"]:checked').value;
+			var inputType = document.getElementById("input-type");
+			inputType.value = type;
+		}
+	</script>
     <?php
 
     // Traitement du formulaire
@@ -95,6 +129,25 @@ if(isset($_POST['delete_database'])){
     }
     
 }
+
+
+if(isset($_POST['type']) && isset($_POST['search'])){
+    $type = $_POST['type'];
+    $search = $_POST['search'];
+    echo "Le type sélectionné est : ".$type."<br>";
+    echo "La recherche effectuée est : ".$search."<br>";
+    // ici vous pouvez utiliser les variables $type et $search dans votre code PHP
+    dispatchAdmin( $type, $search,$connAdmin);
+
+    //$artist = getArtistInfo($accessToken,$artistSearch);
+    //foreach ($artist as $cle => $valeur) {
+    //	echo $cle . " ==> " . $valeur;
+    //}
+    //insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
+
+    //selectRecords($type, $search, $conn);
+}
+?>
 
 
 

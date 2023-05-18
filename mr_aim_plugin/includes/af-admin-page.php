@@ -94,4 +94,49 @@ function viderLabase($conn){
 
 
 }
+
+function suprimerArtiste($conn,$id){
+
+$query = "DELETE FROM Artist WHERE idSpotifyArtist = $id";
+$conn->exec($query);
+
+$query = "DELETE FROM Song WHERE idSpotifyArtist = $id";
+$conn->exec($query);
+
+$query = "DELETE FROM Album WHERE idSpotifyArtist = $id";
+$conn->exec($query);
+
+}
+
+function suprimerAlbum($conn,$id){
+
+    $query = "DELETE FROM Album WHERE IdSpotifyAlbum = $id";
+    $conn->exec($query);
+
+
+    $query = "DELETE FROM Song WHERE IdSpotifyAlbum = $id";
+    $conn->exec($query);
+}
+
+function supprimerSong($conn,$id){
+
+    $query = "DELETE FROM Song WHERE IdSpotifySong = $id";
+    $conn->exec($query);
+}
+
+
+
+function dispatchAdmin($type, $inputUtilisateur,$conn){
+    if ($type == 'Artist'){
+        $artist_rows = selectRecords($type, $inputUtilisateur, $conn);
+
+    }
+    elseif($type == 'Album'){
+        $album_rows = selectRecords($type, $inputUtilisateur, $conn);
+
+    }
+    else{
+        $song_rows = selectRecords($type, $inputUtilisateur, $conn);
+    }
+}
         
