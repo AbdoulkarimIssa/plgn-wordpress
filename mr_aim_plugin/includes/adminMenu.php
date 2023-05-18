@@ -117,35 +117,24 @@ function render_retention_options_page() {
         }
 
     ?>
-<form method="POST">
-    <input type="submit" name="delete_database" value="Vider la base de données">
-</form>
-<?php
+    <form method="POST">
+        <input type="submit" name="delete_database" value="Vider la base de données">
+    </form>
+    <?php
 
-if(isset($_POST['delete_database'])){
-    echo "test";
-    //$delete_database = $_POST['delete_database'];
-    viderLabase($connAdmin);
-    }
+    if(isset($_POST['delete_database'])){
+        echo "test";
+        //$delete_database = $_POST['delete_database'];
+        viderLabase($connAdmin);
+        }
+    if(isset($_POST['type']) && isset($_POST['search'])){
+            $type = $_POST['type'];
+            $search = $_POST['search'];
+            echo "Le type sélectionné est : ".$type."<br>";
+            echo "La recherche effectuée est : ".$search."<br>";
+            dispatchAdmin( $type, $search,$connAdmin);
+        }
     
-}
-
-
-if(isset($_POST['type']) && isset($_POST['search'])){
-    $type = $_POST['type'];
-    $search = $_POST['search'];
-    echo "Le type sélectionné est : ".$type."<br>";
-    echo "La recherche effectuée est : ".$search."<br>";
-    // ici vous pouvez utiliser les variables $type et $search dans votre code PHP
-    dispatchAdmin( $type, $search,$connAdmin);
-
-    //$artist = getArtistInfo($accessToken,$artistSearch);
-    //foreach ($artist as $cle => $valeur) {
-    //	echo $cle . " ==> " . $valeur;
-    //}
-    //insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
-
-    //selectRecords($type, $search, $conn);
 }
 ?>
 

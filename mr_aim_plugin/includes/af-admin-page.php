@@ -22,15 +22,15 @@ function deleteRecords($conn) {
     echo $limitDate;
      //Suppression des enregistrements dans la table 'Artist'
     echo "test4";
-     $sql = "DELETE FROM Artist WHERE lastUpdated > '".$limitDate."'";
+     $sql = "DELETE FROM Artist WHERE lastUpdated < '".$limitDate."'";
      $conn->exec($sql);
      echo "test5";
     // // Suppression des enregistrements dans la table 'Album'
-     $sql = "DELETE FROM Album WHERE lastUpdated > '".$limitDate."'";
+     $sql = "DELETE FROM Album WHERE lastUpdated < '".$limitDate."'";
      $conn->exec($sql);
 
     // // Suppression des enregistrements dans la table 'Song'
-     $sql = "DELETE FROM Song WHERE lastUpdated > '".$limitDate."'";
+     $sql = "DELETE FROM Song WHERE lastUpdated < '".$limitDate."'";
   $conn->exec($sql);
 
     echo "deleted";
@@ -51,20 +51,20 @@ function countExpiredRecords($conn) {
     $totalCount = 0;
 
     // Compteur pour la table 'Artist'
-    $sql = "SELECT COUNT(*) AS count FROM Artist WHERE lastUpdated > '$limitDate'";
+    $sql = "SELECT COUNT(*) AS count FROM Artist WHERE lastUpdated < '$limitDate'";
     $result = $conn->query($sql);
     $count = $result->fetch(PDO::FETCH_ASSOC)['count'];
     $totalCount += $count;
 
     // Compteur pour la table 'Album'
     
-    $sql = "SELECT COUNT(*) AS count FROM Album WHERE lastUpdated > '$limitDate'";
+    $sql = "SELECT COUNT(*) AS count FROM Album WHERE lastUpdated < '$limitDate'";
     $result = $conn->query($sql);
     $count = $result->fetch(PDO::FETCH_ASSOC)['count'];
     $totalCount += $count;
 
     // Compteur pour la table 'Song'
-    $sql = "SELECT COUNT(*) AS count FROM Song WHERE lastUpdated > '$limitDate'";
+    $sql = "SELECT COUNT(*) AS count FROM Song WHERE lastUpdated < '$limitDate'";
     $result = $conn->query($sql);
     $count = $result->fetch(PDO::FETCH_ASSOC)['count'];
     $totalCount += $count;
