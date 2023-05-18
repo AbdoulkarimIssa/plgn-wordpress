@@ -86,6 +86,20 @@ function render_retention_options_page() {
         <input type="submit" name="submit" value="Envoyer">
     </form>
 
+    <form method="POST">
+		<div style='display:flex;'>
+		<label><input type="radio" name="t" value="Artist" onclick="showSearchdelete()"> Artist</label>
+		<label><input type="radio" name="t" value="Album" onclick="showSearchdelete()"> Album</label>
+		<label><input type="radio" name="t" value="Song" onclick="showSearchdelete()"> Song</label>
+		<br>
+		</div>
+		<div id="test" style="display:none">
+			<label>Recherche : </label>
+			<input type="text" name="D">
+			<input type="submit" value="Valider">
+		</div>
+	</form>
+
     <script>
 		function showSearch(){
 			// Affiche la barre de recherche si au moins un bouton est sélectionné
@@ -105,7 +119,30 @@ function render_retention_options_page() {
 			var inputType = document.getElementById("input-type");
 			inputType.value = type;
 		}
+
+
+        function showSearchdelete(){
+			// Affiche la barre de recherche si au moins un bouton est sélectionné
+			var radios = document.getElementsByName("t");
+			var search = document.getElementById("test");
+			for(var i = 0; i < radios.length; i++){
+				if(radios[i].checked){
+					search.style.display = "block";
+					break;
+				}
+				else{
+					search.style.display = "none";
+				}
+			}
+			// Remplit la valeur de l'input hidden avec le bouton sélectionné
+			var type = document.querySelector('input[name="t"]:checked').value;
+			var inputType = document.getElementById("input-type");
+			inputType.value = type;
+		}
 	</script>
+
+
+
     <?php
 
     // Traitement du formulaire
@@ -134,6 +171,21 @@ function render_retention_options_page() {
             echo "La recherche effectuée est : ".$search."<br>";
             dispatchAdmin( $type, $search,$connAdmin);
         }
+    if(isset($_POST['t']) && isset($_POST['D'])){
+        $type = $_POST['t'];
+        $Delete = $_POST['D'];
+        echo "Le type sélectionné est : ".$type."<br>";
+        echo "La recherche effectuée est : ".$Delete."<br>";
+        //dispatchAdmin( $type, $search,$connAdmin);
+        if ($type == "Artist") {
+            suprimerArtiste($connAdmin,$Delete);
+        }if ($type == "Album") {
+            suprimerAlbum($connAdmin,$Delete);
+        } else {
+            supprimerSong($connAdmin,$Delete);
+        }
+        
+    }
     
 }
 ?>
