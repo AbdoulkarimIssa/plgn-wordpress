@@ -51,38 +51,22 @@
 	require_once 'sqlitedb/mr_aim_insert_records.php';
 	require_once 'sqlitedb/mr_aim_pdo1connect.php';
 	require_once 'sqlitedb/mr_aim_create_database.php';
-	//require_once 'adminMenu.php';
 	require_once 'search.php';
 
-	if ($conn) {
-		echo "<p>Objet de connexion valide.</p>";
-	} else {
-		echo "Objet de connexion invalide.";
-	}
+	// if ($conn) {
+	// 	echo "<p>Objet de connexion valide.</p>";
+	// } else {
+	// 	echo "Objet de connexion invalide.";
+	// }
 
 	// Traitement du formulaire
 	if(isset($_POST['type']) && isset($_POST['search'])){
 		$type = $_POST['type'];
 		$search = $_POST['search'];
-		echo "Le type sélectionné est : ".$type."<br>";
-		echo "La recherche effectuée est : ".$search."<br>";
-		// ici vous pouvez utiliser les variables $type et $search dans votre code PHP
+		// echo "Le type sélectionné est : ".$type."<br>";
+		// echo "La recherche effectuée est : ".$search."<br>";
 		dispatch($accessToken, $type, $search, $tableSchemaDictionnary, $conn);
-
-		//$artist = getArtistInfo($accessToken,$artistSearch);
-		//foreach ($artist as $cle => $valeur) {
-		//	echo $cle . " ==> " . $valeur;
-		//}
-		//insertArtist($artist['id'],$artist['name'],$artist['popularity'],$tableSchemaDictionnary,$conn);
-
-		//selectRecords($type, $search, $conn);
-	}
-
-    ############################################################################################
-    # Créer la base de donnée et les tables si jamais elles n'ont pas encore été créées.       #
-	#require_once 'sqlitedb/mr_aim_create_database.php';                                        #
-    #require_once 'sqlitedb/mr_aim_insert_records.php';                                        #
-    ############################################################################################  
+	} 
 	?>
 </body>
 </html>
