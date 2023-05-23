@@ -61,7 +61,7 @@ sudo chmod 777 -R *
 Pour utiliser le plugins vous avez besoin d'un shortcode qui est votre point d'entrée au niveau des pages qui sont destiné à l'utilisateur. 
 
 ```bash  
-shortcode
+[mr_aim_sc]
 ```
 
 ### Interface utilisateurs 

@@ -33,3 +33,5 @@ Pour la gestion du code, nous avons opté pour l'utilisation de GitHub comme ges
 ## Problème d'installation
 
 Issa, qui développe sur un PC Linux, a rencontré des difficultés lors de l'installation sur sa machine physique. Par conséquent, il a configuré une machine virtuelle Linux et y a installé WAMPP. Afin de tester le code, Issa transférait celui-ci de la machine hôte vers la machine virtuelle. Cette méthode s'est révélée efficace, cependant, il a rencontré quelques problèmes de droits qu'il a dû corriger manuellement. 
+
+Maxime de son côté, à développer à partir d'un container docker wordpress. Il avait donc a démarré le docker puis se rendre sur le localhost:51264 pour pouvoir voir en temps réel les modifications.
